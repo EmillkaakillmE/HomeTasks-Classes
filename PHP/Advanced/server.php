@@ -14,21 +14,8 @@ class InputEmail implements useful{
 	}
 	
 	//Функция добавления стилей
-	function addStyles($styles) {
-		//В этом массиве будет ассоциативный массив где ключи будут свойствами, а значения массива будут значениями свойств
-		//[
-		//	'property' => 'value',
-		//]
-		$arr = array();
-		//Разделитель между парой свойств CSS будет запятая
-		$pre_arr = explode(', ', $styles);
-		foreach ($pre_arr as $str) {
-			//Тут делим по разделителю двоеточие, для пары свойство-значение
-			list($key, $value) = explode(': ', $str);
-			$arr[$key] = $value;
-		}
-			
-			//Эта функция превращает наш ассоциативный массив обратно в строку, с правильным синтаксисом для атрибута style. Взял из документации
+	function addStyles($arr) {
+			//Эта функция превращает наш ассоциативный массив в строку, с правильным синтаксисом для атрибута style. Взял из документации
 			function mapped_implode($glue, $array, $symbol = '=') {
 				return implode($glue, array_map(
 					function($k, $v) use($symbol) {
@@ -46,14 +33,29 @@ class InputEmail implements useful{
 		
 		//Тут не придумал ничего умнее, как переписать переменную.
 		$this->_html='<input type="email"' . $style . 'name="mail" placeholder="Введите почту">';
-		//Ну и вывести её
+		
 		echo $this->_html;
 	}
 }
 
-//Вот только проблема - они дублируются. Как удалить предыдущий элемент?
+
+	$arStyles = [
+	'outline' => 'none',
+	'border' => 'none',
+	'font-style' => 'italic',
+	'font-weight' => 'bold',
+	'padding' => '10px',
+	'width' => '241px',
+	'border-radius' => '5px',
+	'box-shadow' => 'inset 0px 0px 7px 0px #333',
+	];
+
 $inp_mail = new InputEmail;
+$inp_mail->addStyles($arStyles);
 $inp_mail->show();
-$inp_mail->addStyles('outline: none, border: none, font-style: italic, font-weight: bold, padding: 10px, width: 241px, border-radius: 5px, box-shadow: inset 0px 0px 7px 0px #333');
 
 ?>
+
+
+
+<?//Тупое задание. Инпуты таким образом дублироваться будут после каждого вызова метода show. Странная хуйня Мой варик длинне и с костылём, но пусть будет. Тут прикольная функция используется?>
