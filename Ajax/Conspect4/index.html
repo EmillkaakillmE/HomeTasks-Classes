@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Ajax 4 - Обработка форм полным контролем</title>
+</head>
+<body>
+	
+	<form method="post" id="mail_send">
+		<input type="email" name="mail">
+		<input type="submit" value="Отправить">
+	</form>
+	
+	<p id="time"></p>
+	<p id="content"></p>
+	
+	
+	<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+	
+	<script type="text/javascript">
+		$("#mail_send").submit(function() {
+			var str = $(this).serialize();	//name=value&...
+			$.ajax({
+				url: "php/hello.php",
+				type: "POST",
+				cache: false,
+				data: str,
+				success: function (data) {
+					$('#content').html(data);
+				}
+			});
+			return false;
+		});
+	</script>
+	
+	<script type="text/javascript">
+		function show() {
+		$.ajax({
+			url: "php/time.php",
+			cache: false,
+			success: function (data) {
+				$('#time').html(data);
+			}
+		});
+	}
+	setInterval('show()', 1000);
+	</script>
+</body>
+</html>

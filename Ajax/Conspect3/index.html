@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Ajax 3 - Передача данных в формате JSON</title>
+</head>
+<body>
+	<label for="">Укажите страну</label>
+	<select name="country" id="">
+		<option value="0" selected="selected" disabled></option>
+		<option value="1">Америка</option>
+		<option value="2">Франция</option>
+	</select>
+	
+	<label for="">Города</label>
+	<select name="city" id="">
+		<option value="0" disabled></option>
+	</select>
+	
+	<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+	<script type="text/javascript">
+		$(document).ready(function () {
+				$("select[name='country']").bind("change"/*Обработчик событий, который заставляет функцию сработать при каждом изменении селекта*/, function() {
+						$("select[name='city']").empty();
+					$.get("countryCheck.php", {country: $("select[name='country']").val()}, function(data) {
+						data = JSON.parse(data);
+						for (var id/*Ключ*/ in data/*Значение*/) {
+							$("select[name='city']").append($("<option value='" + id + "'>" + data[id] + "</option>"));
+						}
+					})
+				});
+		});
+	</script>
+</body>
+</html>

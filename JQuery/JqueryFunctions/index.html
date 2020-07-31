@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Встроенные функции</title>
+	<link rel="stylesheet" href="css/style.css" class="css">
+</head>
+<body>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	<h3>CSS</h3>
+	
+	<p>
+		Думаю писать css в jquery мы уже умеем. Не раз делали) Рассмотрим другие функцие связанные с этим методом. Создадим блок и дадим им пару стилей
+	</p>
+	
+	<div class="getStyles"></div>
+	<script type="text/javascript">
+		var blockStyles = $(".getStyles").css("width");				//Берём свойство блока
+		console.log(blockStyles);											//Выводим в консоль
+		console.log("");
+	</script>
+	<h3>Классы</h3>
+	<p>
+		Немного отходя от самого CSS но неотходя от стилей. Подключать стили ручками немного запарно. Но можно прописать желаемые стили в классе в файле CSS и с помощью JS добавить класс с нужными стилями к элементу. Это мы сейчас и сделаем
+	</p>
+	
+	<div id="addMe"></div>
+	
+	<script type="text/javascript">
+		//Данная функция принимает один параметр, но можно добавить несколько классов через пробел
+		$("#addMe").addClass("addStyles");
+	</script>
+	
+	<p>
+		А теперь давайте удалим класс по клику на этот блок
+	</p>
+	
+	<script type="text/javascript">
+		$("#addMe").on("click", function() {
+			$(this).removeClass("addStyles");				//Удаление
+		});
+	</script>
+	
+	<p>
+		А теперь давайте проверим, есть ли у этого блока класс, который мы удалили?
+	</p>
+	<script type="text/javascript">
+		var hasClass = $("#addMe").hasClass("addStyles");
+		console.log(hasClass);										//Ща есть
+		console.log("");
+		$(".getStyles").on("click", function() {
+			console.log($("#addMe").hasClass("addStyles"));	//А ща нет. Только нажать надо на зелёный квадратик
+			console.log("");
+		})
+	</script>
+	
+	<h3>Атрибуты</h3>
+	
+	<p>
+		Поработаем с атрибутами элементов. Давайте создадим ссылку с атрибутом target и его раздражающим значением _self.
+	</p>
+	<div class="link-container">
+		<a href="http://htmlbook.ru/html/a/target" target="_self">Ссылочка</a>
+	</div>
+	
+	<script type="text/javascript">
+		var attr = $(".link-container a").attr("target")
+		console.log(attr);
+		console.log("");
+	</script>
+	
+	<p>
+		Теперь установим нормальное значение _blank
+	</p>
+	<script type="text/javascript">
+		$(".link-container a").attr({						//Также добавили несколько атрибутов
+			"target": "_blank",
+			"title": "Ссылка куда-нибудь",
+			"id": "NewID"
+		})
+	</script>
+	
+	<p>
+		Удалим атрибут ID
+	</p>
+	
+	<script type="text/javascript">
+		$(".link-container a").removeAttr("id");				//Работает
+	</script>
+	
+	<h4>Атрибуты без значений</h4>
+	<p>
+		Такие атрибуты как disabled, checked и др. Установим disabled на инпуте ниже
+	</p>
+	<input type="text" class="dis">
+	
+	<script type="text/javascript">
+		$(".dis").prop("disabled", true);
+		setTimeout(function() {
+			$(".dis").prop("disabled", false);
+		}, 2000);
+	</script>
+</body>
+</html>

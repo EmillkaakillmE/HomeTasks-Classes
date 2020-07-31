@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Ajax 2 - Проверка данных из формы</title>
+	<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+	<script type="text/javascript">
+		
+		function funcBefore () {
+			$("#information").text("Ожидание данных...");
+		}
+		
+		function funcSuccess (data) {
+			$("#information").html(data);
+		}
+		
+		$(document).ready (function() {
+			$("#load").bind("click", function() {
+				var admin = "Admin";
+				$.ajax({
+					url: "content.php",
+					type: "POST",
+					data: ({name: admin, number: 5}),
+					dataType: "html",
+					beforeSend: funcBefore,
+					success: funcSuccess,
+				});
+			});
+			/*Новый контроль, для проверки имени пользователя на повторение. Если имя такое уже есть, то выводим сообщение об этом*/
+			$("#done").bind("click", function() {
+				$.ajax({
+					url: "check.php",								//Будем теперь обрабатывать данные в другом файле.
+					type: "POST",
+					data: ({login: $("#name").val()}),		//Значения инпута передаются в переменную login
+					dataType: "html",
+					beforeSend: function() {
+							$("#information").text("Ожидание данных...");
+					},
+					//Всё до этой строчки как обычно. Кроме мелких деталей
+					success: function(data) {
+							if (data == "Fail") 
+								alert("Имя занято");
+							else
+								$("#information").html(data);
+					}
+				});
+			});
+		});
+	</script>
+</head>
+<body>
+	<p id="load" style="cursor: pointer;">
+		Загрузить данные
+	</p>
+
+	<input type="text" placeholder="Введите Имя" id="name">
+	<input type="button" id="done" value="Готово">
+
+	<div id="information"></div>
+</body>
+</html>

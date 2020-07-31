@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Селекторы выбора</title>
+</head>
+<body>
+	<h3>select</h3>
+	<div id="block">Test</div>
+	<p class="txt">1</p>
+	<p class="txt">2</p>
+	<p class="txt">3</p>
+	
+	
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	<script type="text/javascript">
+		$("#block").hide("slow");
+		$(".txt").slideUp("slow");
+	</script>
+	<h3>next() last() first() prev()</h3>
+	<div class="psevdo"></div>
+	<div class="psevdo"></div>
+	<div class="psevdo"></div>
+	<div class="psevdo"></div>
+	
+	<script type="text/javascript">
+		$(".psevdo").css({
+			"width": "200px",
+			"height": "200px",
+			"background-color": "red",
+		});
+		
+		$(".psevdo").first().next().css({					//Выбираем следующий после первого (второй)
+			"background-color": "#2FCACFFF"
+		});
+		
+		$(".psevdo").last().css({
+			"background-color": "blue",
+		});
+		$(".psevdo").last().prev().css({						//Выбирает предпоследний
+			"background-color": "#E01EAEFF",
+		});
+	</script>
+	
+	<h3>parent() child()</h3>
+	
+	<div class="container">
+		<div class="child"></div>
+	</div>
+	
+	<script type="text/javascript">
+		$(".container").css({
+			"width": "200px",
+			"height": "200px",
+			"background-color": "green",
+		});
+		$(".child").css({
+			"width": "120px",
+			"height": "120px",
+			"background-color": "red",
+		});
+		$(".child").parent().css({
+			"border-radius": "15px",
+			"overflow": "hidden",
+		});
+		$(".container").children().css({
+			"border-radius": "50%",
+			"overflow": "hidden",
+		});
+	</script>
+</body>
+</html>

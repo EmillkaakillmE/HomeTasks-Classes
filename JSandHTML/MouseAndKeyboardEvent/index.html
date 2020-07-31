@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>События клавиатуры и мыши</title>
+	<link rel="stylesheet" href="css/style.css" class="css">
+</head>
+<body>
+	<h2>Введение</h2>
+	
+	<p>
+		В этом конспекте мы рассмотрим какие бывают события и как с ними работать. Ранее мы рассматривали лишь принцип работы событий и зацепили не так много из них. Здесь остановимся на этой теме поподробнее. 
+	</p>
+	
+	<h2>События клавиатуры</h2>
+	
+	<p>
+		Можно ловить разные события в зависимости от поведения пользователя по отношению к устройствам ввода. Напомню, что устройствами ввода являются клавиатура и мышь. Если пользователь нажал на ЛКМ это одно событие, если нажал на него два раза дважды, это уже другое событие. С клавиатурой всё ещё веселее, каждая клавиша нажатая на ней это отдельное событие. Но как у каждой клавиши должно быть тогда отдельное название. Давайте его и узнаем
+	</p>
+	
+	<textarea name="name" class="full-text" cols="30" rows="10"></textarea>
+	<script type="text/javascript">
+		let text = document.querySelector('.full-text');
+
+		text.onkeydown = function (event) {
+			console.log(event.key);
+		}
+	</script>
+	
+	<p>
+		Благодаря скрипту выше можно отслеживать, как называется каждая клавиша на клавиатуре. Есть ещё два события, для каждой клавиши клавиатуры. Это событие когда клавиша только нажимается - onkeydown, когда клавиша нажата onkeypress, и когда она была нажата, а сейчас отжалась - onkeyup. Мы можем отловить все три события в одной textarea.
+	</p>
+	
+	<p>
+		Но для начала стоит отметить для чего целых три события для всего лишь нажатия одной клавишы. Чтобы понять это, давайте будем вводить в консоль не название каждой нажатой клавиши, а значение в поле textarea
+	</p>
+	
+	<textarea name="name1" class="whyThreeEvents" cols="30" rows="10"></textarea>
+	<script type="text/javascript">
+		let whyThreeEvents = document.querySelector('.whyThreeEvents');
+
+		whyThreeEvents.onkeydown = function (event) {
+			console.log("onkeydown: " + whyThreeEvents.value);
+		}
+		
+		whyThreeEvents.onkeypress = function (event) {
+			console.log("onkeypress: " + whyThreeEvents.value);
+		}
+		
+		whyThreeEvents.onkeyup = function (event) {
+			console.log("onkeyup: " + whyThreeEvents.value);
+		}
+	</script>
+	
+	<p>
+		Можно заметить, что текст вводится только при событии onkeyup
+	</p>
+	
+	<h2>События мышки</h2>
+	
+	<p class="mouseEvents">
+		<b class="bold-txt">Жмякай на меня по разному</b>
+	</p>
+	
+	<script type="text/javascript">
+		let boldText = document.querySelector(".mouseEvents>.bold-txt");
+		/*Событе на один щелчок*/
+		boldText.onclick = function() {
+			boldText.style.color = "#fcfc"
+		};
+		/*Событе на двойной щелчок*/
+		boldText.ondblclick = function() {
+			boldText.style.color = "#64BF"
+		};
+		/*Событе на нажатие ЛКМ*/
+		boldText.onmousedown = function() {
+			boldText.style.color = "#D98D25FF"
+		};
+		
+		/*Событе на отжатие ЛКМ*/
+		boldText.onmouseup = function() {								//Надо закоментить onclick
+			boldText.style.color = "#21DDB3FF"
+		};
+		
+		/*Событе на нажатие ПКМ*/
+		boldText.oncontextmenu = function() {
+			boldText.style.color = "#12EC14FF"
+		};
+	</script>
+	
+	<h2>Что-то интересное</h2>
+	<p>
+		Созадидм инпутик
+	</p>
+	
+	<div style="position: relative;">
+		<input type="text" name="input" class="input" placeholder="Введите текст">
+		<div class="hint">
+			Подсказка при наведении
+		</div>
+	</div>
+	
+	<script type="text/javascript" src="js/script.js"></script>
+</body>
+</html>

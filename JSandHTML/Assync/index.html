@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Асинхронное программирование</title>
+</head>
+<body>
+	<h2>Стандартная обработка</h2>
+	
+	<p>
+		В js код обрабатывается последовательно, сверху вниз. Что собственно логично. Это стандартная обработка кода интерпритатором.
+	</p>
+	<script type="text/javascript">
+		console.log(1);
+		console.log(2);
+		console.log(3);
+		console.log(4);
+		console.log(5);
+		console.log(6);
+		console.log("\n");
+	</script>
+	<p>
+		Только что в консоль вывелись числа последовательно
+	</p>
+	
+	<h2>Ассинхронное программирование</h2>
+	
+	<p>
+		Один из примеров ассинхронного программирования можно назвать функцию setTimeout. А если точнее это отложенная функция, временем реализации которой мы можем управлять непосредственно
+	</p>
+	
+	<script type="text/javascript">
+		setTimeout(function() {
+			console.log(7);
+		}, 2000);
+		
+		console.log(1);
+		console.log(2);
+		console.log(3);
+		console.log(4);
+		console.log(5);
+		console.log(6);
+		console.log("\n");
+	</script>
+	
+	<p>
+		Несмотря на то, что функция была вызвана вначале, реализовалась она в конце, после внизу стоящих функций
+	</p>
+	
+	
+	<script type="text/javascript" src="js/script.js"></script>
+</body>
+</html>

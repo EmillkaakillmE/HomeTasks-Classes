@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>События в JavaScript</title>
+</head>
+<body style="height: 300vh">
+	
+	<h2>События мышки</h2>
+	<p>
+		Создать событие можно прямо в атрибуте любого тега. Атрибутов таких много, можно про них почитать в спецификации о каждом из них, но заранее скажу, что таким способом мы пользоваться не будем. Просто знакомства ради
+	</p>
+	
+	<p>
+		Итак, атрибут onclick как понятно из названия срабатывает при нажатии ЛКМ по тегу. Под "срабатывает" я имею в виду, исполняется JS код, который записан в этом атрибуте. Да в этом атрибуте можно писать JS, но думаю понятно, что много его там не напишешь, этож атрибут.
+	</p>
+	<a href="#" onclick="alert('Привет')">Нажми на меня</a>
+	
+	<p>
+		Таким образом мы создали ссылку, по нажатию на которую выходит алерт. Обычно так не делают, в значении атрибута записывают название функции, которая должна сработать
+	</p>
+	
+	<p>
+		Создадим такую функцию и поместим уже в эту ссылку:
+	</p>
+	
+	<a href="#" onclick="clickHere()">Нажми теперь на меня</a>
+	
+	<script type="text/javascript">
+		function clickHere() {
+			alert('Дарова');
+		}
+	</script>
+	
+	<p>
+		Таким образом, мы имеем возможность вызывать любую функцию из нашего js кода, который может находиться в другом файле. Единственное условие - нужно чтобы он был подключен. А раз можем вызвать любую функцию, то и сделать можем, что захотим. Давайте поиграемся с этой ссылкой
+	</p>
+	
+	<a href="#" onclick="linkAnimation()" class="link-ainm">Хоба</a>
+	<script type="text/javascript">
+		function linkAnimation() {
+			let linkAnim = document.querySelector('.link-ainm');
+			linkAnim.style.display = "inline-block";
+			linkAnim.style.transition = "0.8s";
+			linkAnim.style.color = "#3092CEFF";
+			linkAnim.style.textDecoration = "none";
+			linkAnim.style.transform = "rotate(360deg)";
+		}
+	</script>
+	<p onclick="paragAnimation()" class="text-anim">
+		Я тоже так умею. НАЖМИ НА МЕНЯ
+	</p>
+	<script type="text/javascript">
+		function paragAnimation() {
+			let textAnim = document.querySelector('.text-anim');
+			textAnim.style.display = "inline-block";
+			textAnim.style.transition = "0.8s";
+			textAnim.style.color = "#3092CEFF";
+			textAnim.style.textDecoration = "none";
+			textAnim.style.transform = "rotate(360deg)";
+		}
+	</script>
+	
+	<p>
+		Навешивать одинаковый селекторы и имена функций не получится. Так как если в js селектор берёт не одно значение, он возвращает массив. А по массиву нужно пробегаться назначая функцию каждому элементу из этого массива
+	</p>
+	
+	<p>
+		Также эта функция в атрибуте может принимать некоторые значения, которые мы потом можем использовать в нашем JS коде. Например до этого мы выбирали селектор сами, писали класс вручную каждый раз. Но можно же закинуть это в параметр функции.
+	</p>
+	
+	<p class="funcParams" onclick="colorChange('funcParams')">
+		Вот так тоже можно. НАЖИМАЙ
+	</p>
+	<script type="text/javascript">
+		function colorChange(selector) {
+			let textChange = document.querySelector('.' + selector);
+			textChange.style.display = "inline-block";
+			textChange.style.transition = "0.8s";
+			textChange.style.color = "#3092CEFF";
+			textChange.style.textDecoration = "none";
+			textChange.style.transform = "rotate(360deg)";
+		}
+	</script>
+	
+	<p>
+		Также есть атрибут, который вызывает функцию по нажатию на элемент именно два раза. Даблклик кароч
+	</p>
+	
+	<p class="doubleClick" ondblclick="colorChange('doubleClick')">
+		ЖМИ ДВАЖДЫ 
+	</p>
+	
+	<script type="text/javascript">
+		function colorChange(selector) {
+			let double = document.querySelector('.' + selector);
+			double.style.display = "inline-block";
+			double.style.transition = "0.8s";
+			double.style.color = "#3092CEFF";
+			double.style.textDecoration = "none";
+			double.style.transform = "rotate(360deg)";
+		}
+	</script>
+	
+	<h2>События window</h2>
+	
+	<p>
+		У окна всего браузера тоже есть свои события. Это могут быть изменения ширины окна браузера, или высоты. Это может быть даже тото же клик мышки по всему окну (по любому месте в окне браузера). И реализоваться они могут уже в самом JS. Сейчас можешь это проверить и кликнуть куда угодно. В консоли выведется сообщение "Клик".
+	</p>
+	<script type="text/javascript">
+		window.onclick = function() {
+			console.log("Клик");
+		};
+	</script>
+	<p>
+		Таким образом мы можем прощупать, где окно будет чувствительно к нашим кликам, а где нет. Чувствительно оно только в месте реализации страницы. Всякие вкладки и другие панели не чувствительны
+	</p>
+	
+	<p>
+		Таким образом можно вызывать события в js. Так мне кажется и удобнее, без атрибутов всяких
+	</p>
+	
+	<input type="text" class="funTest">
+	<script type="text/javascript">
+		let inp = document.querySelector('input.funTest');
+
+		inp.onclick = function()
+		{
+			inp.style.padding = "15px";
+			inp.style.borderRadius = "5px";
+			inp.style.color = "red";
+		}
+	</script>
+	<p>
+		Вернёмся к событиям окна. Одно из довольно важных событий это изменение его размеров. Важно для адаптивности сайта. Именно, адаптивность можно делать и в JS. Собтие так и называется, .onresize и вызывается в JS. Ну для адаптивности здесь делать нечего. Давайте просто будем выводить сообщение в консоль
+	</p>
+	
+	<script type="text/javascript">
+		window.onresize = function() 
+		{
+			//document.body.style.color = "fff";
+			console.log("Изменение размеров окна");
+		}
+	</script>
+	
+	<p>
+		Также довольно важным событием для окна является событие onload. Оно срабатывает после того, как страница загрузилась
+	</p>
+	
+	<script type="text/javascript">
+		window.onload = function()
+		{
+			console.log("Страница загрузилась");
+		}
+	</script>
+	
+	<p>
+		Событие onscroll срабатывает только тогда, когда мы скролим сайт.
+	</p>
+	
+	<script type="text/javascript">
+		window.onscroll = function()
+		{
+			console.log("Произошло скрооолл");
+		};
+	</script>
+	
+	<p>
+		Небольшое задание! Нужно реализовать текстарею, у которого будет невешено событие срабатывающее с каждым изменение этой текстареи.
+	</p>
+	
+	<textarea type="textarea" id="little-task"></textarea>
+	<script type="text/javascript">
+		let textarea = document.querySelector('#little-task');
+		textarea.oninput = function()
+		{
+			textarea.style.backgroundColor = "#aa44bb";
+		};
+	</script>
+	
+	
+	<h3>События EventListener</h3>
+	
+	<p>
+		Это такая функция, которая принимает два параметра. Первый параметр это само событие без префикса on. Тоесть не onclick, а click. Не oninput а input. Второй параметр это название, функции, которая будет мутить штуки при срабатывании события. Навесив EventListener мы в одну строчку прицепим событие к элементу. Функцию для события конечно нужно будет написать отдельно
+	</p>
+	
+	<div class="block">
+		Привет Дарова, нажми!
+	</div>
+	
+	<script type="text/javascript">
+		let block = document.querySelector('div.block');
+		
+		block.addEventListener("click", functionName);
+		
+		function functionName () {
+			block.innerHTML = "Ну всё, смэрть"
+		}
+	</script>
+	
+	<p>
+		Можно не только добавлять оброботчик события, но и удалять его. Создадим сначала элемент, который будет меняться при наведении мышки и при отведении мышки
+	</p>
+	
+	<div class="remover" style="width: 200px; height: 200px; border: 1px solid #000;"></div>
+	
+	<script type="text/javascript">
+		let remover = document.querySelector('.remover');
+		remover.addEventListener("mouseover", function(){
+			remover.style.backgroundColor = "#000";
+		});
+		remover.addEventListener("mouseout", mouseoutName);
+		function mouseoutName(){
+			remover.style.backgroundColor = "#D62";
+		};
+	</script>
+	<p>
+		Вооот. Работает. А тепрь давай удалим mouseout, чтобы цвет оставался чёрным.
+	</p>
+	
+	<script type="text/javascript">
+		remover.removeEventListener("mouseout", mouseoutName);
+	</script>
+	<!-- <script type="text/javascript" src="js/script.js"></script> -->
+</body>
+</html>

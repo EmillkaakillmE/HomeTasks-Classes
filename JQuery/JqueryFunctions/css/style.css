@@ -1,0 +1,17 @@
+.getStyles{
+	width: 150px;
+	height: 150px;
+	background-color: #20DE38FF;
+}
+
+.addStyles{
+	height: 130px;
+	width: 200px;
+	background-color: rgba(140, 85, 171, 0.7);
+	border-radius: 15px;
+	transition: all 0.5s ease;
+}
+
+.addStyles:hover{
+	transform: rotate(180deg);
+}
