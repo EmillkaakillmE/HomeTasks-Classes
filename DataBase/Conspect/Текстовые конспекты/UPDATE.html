@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="description" content="The UPDATE SQL statement is used to make changes to data in a database.  You can make changes to one more columns for multiple rows in a single query.  Today we will work an elite database of internationally known spies to practice making UPDATEs and checking our work."/>
+	<title>Обновление значения (основы)</title>
+</head>
+<body>
+	<h2>Введение</h2>
+	<p>
+		В этом конспекте мы разберём основы обновления информации. Это нужно для изменения записей, которые уже существуют в наших таблицах. Также является одним из основных действий с БД. Используется в ситуациях, когда нам нужно изменить какую-то уже существующую запись, либо лишь конкретные её поля.
+	</p>
+	
+	<p>
+		Сегодня мы будем работать с табличкой секретных агентов под названием `secret_user`, которая содержит следующие поля:
+		
+		<ul>
+			<li>user_id</li>
+			<li>first_name</li>
+			<li>last_nname</li>
+			<li>code_name</li>
+			<li>country</li>
+			<li>organization</li>
+			<li>salary</li>
+			<li>knows_kung_fu</li>
+		</ul>
+		
+		А выглядит она примерно так:
+		<table border="1">
+			<tr>
+				<th>user_id</th>
+				<th>first_name</th>
+				<th>last_name</th>
+				<th>code_name</th>
+				<th>country</th>
+				<th>organization</th>
+				<th>salary</th>
+				<th>knows_kung_fu</th>
+			</tr>
+			<tr>
+				<td>1</td>
+				<td>Jimmy</td>
+				<td>Bond</td>
+				<td>007</td>
+				<td>UK</td>
+				<td>MI6</td>
+				<td>97200</td>
+				<td>false</td>
+			</tr>
+			<tr>
+				<td>2</td>
+				<td>George</td>
+				<td>Smiley</td>
+				<td>Beggarman</td>
+				<td>UK</td>
+				<td>MI6</td>
+				<td>97200</td>
+				<td>false</td>
+			</tr>
+			<tr>
+				<td>3</td>
+				<td>Jason</td>
+				<td>Bourne</td>
+				<td>Delta One</td>
+				<td>US</td>
+				<td>CIA</td>
+				<td>115000</td>
+				<td>false</td>
+			</tr>
+			<tr>
+				<td>4</td>
+				<td>Jack</td>
+				<td>Ryan</td>
+				<td>NULL</td>
+				<td>US</td>
+				<td>CIA</td>
+				<td>85000</td>
+				<td>false</td>
+			</tr>
+			<tr>
+				<td>5</td>
+				<td>Ethan</td>
+				<td>Hunt</td>
+				<td>Bravo Echo 1-1</td>
+				<td>US</td>
+				<td>IMF</td>
+				<td>250000</td>
+				<td>false</td>
+			</tr>
+			<tr>
+				<td>6</td>
+				<td>Emma</td>
+				<td>Peel</td>
+				<td>Mrs.Peel</td>
+				<td>UK</td>
+				<td>MI6</td>
+				<td>97200</td>
+				<td>false</td>
+			</tr>
+			<tr>
+				<td>7</td>
+				<td>Susan</td>
+				<td>Hilton</td>
+				<td>Agent 99</td>
+				<td>US</td>
+				<td>Control</td>
+				<td>250000</td>
+				<td>false</td>
+			</tr>
+			<tr>
+				<td>8</td>
+				<td>Nick</td>
+				<td>Fury</td>
+				<td>Foxtrot</td>
+				<td>US</td>
+				<td>Shield</td>
+				<td>250000</td>
+				<td>false</td>
+			</tr>
+		</table>
+	</p>
+	
+	<h3>Смена имени</h3>
+	<p>
+		И тут мы получаем секретное задание, сменить имя у агента под id=1, с Jimmy на James. Видимо мистеру Бонду не очень нравится его прозвище. Итак, как мы это сделаем. С помощью команды UPDATE конечно. <br>
+		Сначала пишем команду UPDATE и название таблицы, в которой будут происходить эти изменения. Затем указываем поле, которое будем менять и через знак ровно прописываем, на какое значение мы будем менять содержимое этого поля. <br>
+		Но не спешим! Надо указать, в каких конкретно записях мы хотим произвести эти действия! Не всем же так имя менять. Указываем условие WHERE, в котором надёжнее всего указать id записи. Вот что будет в итоге:
+		
+		<pre>
+			UPDATE `secret_user`
+			SET `first_name` = 'James'
+			WHERE `user_id` = 1
+		</pre>
+		Рассмотрим что же получилось, с помощью команды <code>SELECT * FROM `secret_user`</code>:
+		<table border="1">
+			<tr>
+				<th>user_id</th>
+				<th>first_name</th>
+				<th>last_name</th>
+				<th>code_name</th>
+				<th>country</th>
+				<th>organization</th>
+				<th>salary</th>
+				<th>knows_kung_fu</th>
+			</tr>
+			<tr>
+				<td>1</td>
+				<td>James</td>
+				<td>Bond</td>
+				<td>007</td>
+				<td>UK</td>
+				<td>MI6</td>
+				<td>97200</td>
+				<td>false</td>
+			</tr>
+			<tr>
+				<td>2</td>
+				<td>George</td>
+				<td>Smiley</td>
+				<td>Beggarman</td>
+				<td>UK</td>
+				<td>MI6</td>
+				<td>97200</td>
+				<td>false</td>
+			</tr>
+			<tr>
+				<td>3</td>
+				<td>Jason</td>
+				<td>Bourne</td>
+				<td>Delta One</td>
+				<td>US</td>
+				<td>CIA</td>
+				<td>115000</td>
+				<td>false</td>
+			</tr>
+			<tr>
+				<td>4</td>
+				<td>Jack</td>
+				<td>Ryan</td>
+				<td>NULL</td>
+				<td>US</td>
+				<td>CIA</td>
+				<td>85000</td>
+				<td>false</td>
+			</tr>
+			<tr>
+				<td>5</td>
+				<td>Ethan</td>
+				<td>Hunt</td>
+				<td>Bravo Echo 1-1</td>
+				<td>US</td>
+				<td>IMF</td>
+				<td>250000</td>
+				<td>false</td>
+			</tr>
+			<tr>
+				<td>6</td>
+				<td>Emma</td>
+				<td>Peel</td>
+				<td>Mrs.Peel</td>
+				<td>UK</td>
+				<td>MI6</td>
+				<td>97200</td>
+				<td>false</td>
+			</tr>
+			<tr>
+				<td>7</td>
+				<td>Susan</td>
+				<td>Hilton</td>
+				<td>Agent 99</td>
+				<td>US</td>
+				<td>Control</td>
+				<td>250000</td>
+				<td>false</td>
+			</tr>
+			<tr>
+				<td>8</td>
+				<td>Nick</td>
+				<td>Fury</td>
+				<td>Foxtrot</td>
+				<td>US</td>
+				<td>Shield</td>
+				<td>250000</td>
+				<td>false</td>
+			</tr>
+		</table>
+		Вот так просто мы стёрли ненужно значение в записи и заменили на другое.
+	</p>
+	
+	<h3>Назначение</h3>
+	<p>
+		Следующее задание, нам нужно назначить кодовое имя для единственного агента, у которого его нет, для Jack Ryan. UPDATE подходит для такой задачи, как нельзя лучше. Заодно, чтоб было не скучно, давайте поменяем ему зарплату на такую же, как у Джэйсона Борна - 115000. А также, будем искать нужную запись не по айди, а по имени и фамилии.
+		<pre>
+			UPDATE `secret_user`
+			SET `code_name` = 'Neo 2.0', `salary` = 115000
+			WHERE `first_name` = 'Jack' AND `last_name` = 'Ryan'
+		</pre>
+		Иииии проверяем! <code>SELECT * FROM `secret_user`</code>
+		<table border="1">
+			<tr>
+				<th>user_id</th>
+				<th>first_name</th>
+				<th>last_name</th>
+				<th>code_name</th>
+				<th>country</th>
+				<th>organization</th>
+				<th>salary</th>
+				<th>knows_kung_fu</th>
+			</tr>
+			<tr>
+				<td>1</td>
+				<td>James</td>
+				<td>Bond</td>
+				<td>007</td>
+				<td>UK</td>
+				<td>MI6</td>
+				<td>97200</td>
+				<td>false</td>
+			</tr>
+			<tr>
+				<td>2</td>
+				<td>George</td>
+				<td>Smiley</td>
+				<td>Beggarman</td>
+				<td>UK</td>
+				<td>MI6</td>
+				<td>97200</td>
+				<td>false</td>
+			</tr>
+			<tr>
+				<td>3</td>
+				<td>Jason</td>
+				<td>Bourne</td>
+				<td>Delta One</td>
+				<td>US</td>
+				<td>CIA</td>
+				<td>115000</td>
+				<td>false</td>
+			</tr>
+			<tr>
+				<td>4</td>
+				<td>Jack</td>
+				<td>Ryan</td>
+				<td>Neo 2.0</td>
+				<td>US</td>
+				<td>CIA</td>
+				<td>115000</td>
+				<td>false</td>
+			</tr>
+			<tr>
+				<td>5</td>
+				<td>Ethan</td>
+				<td>Hunt</td>
+				<td>Bravo Echo 1-1</td>
+				<td>US</td>
+				<td>IMF</td>
+				<td>250000</td>
+				<td>false</td>
+			</tr>
+			<tr>
+				<td>6</td>
+				<td>Emma</td>
+				<td>Peel</td>
+				<td>Mrs.Peel</td>
+				<td>UK</td>
+				<td>MI6</td>
+				<td>97200</td>
+				<td>false</td>
+			</tr>
+			<tr>
+				<td>7</td>
+				<td>Susan</td>
+				<td>Hilton</td>
+				<td>Agent 99</td>
+				<td>US</td>
+				<td>Control</td>
+				<td>250000</td>
+				<td>false</td>
+			</tr>
+			<tr>
+				<td>8</td>
+				<td>Nick</td>
+				<td>Fury</td>
+				<td>Foxtrot</td>
+				<td>US</td>
+				<td>Shield</td>
+				<td>250000</td>
+				<td>false</td>
+			</tr>
+		</table>
+	</p>
+	<h3>Множественный UPDATE (IN)</h3>
+	<p>
+		А что если, нам нужно обновить данные только в тех записях, между которыми нет почти ни одного общего значения поля. А если и есть, то его довольно трудно вычислить. В таких ситуациях ленивый человек послал бы всё к чертям и просто бы перечислил нужные айди, чтобы не писать сложные условия WHERE. Чтож, и такой способ имеет право на жизнь. <br>
+		Давайте поменяем поле knows_kung_fu у пользователей Ethan, Susan и Nick с false на true. Между этими ребятами не так много общего и создавать спецефическое условие не очень хочется. Давайте просто перечислим их id. Но что значит "перечислим"? Через запятую? Почти... Тут нам поможет функция IN(), в которой мы и будем перечислять нужные id. И да, через запятую
+		
+		<pre>
+			UPDATE `secret_user`
+			SET `knows_kung_fu` = TRUE
+			WHERE `user_id` IN(5,7,8)
+		</pre>
+		
+		Проверяем:
+		<table border="1">
+			<tr>
+				<th>user_id</th>
+				<th>first_name</th>
+				<th>last_name</th>
+				<th>code_name</th>
+				<th>country</th>
+				<th>organization</th>
+				<th>salary</th>
+				<th>knows_kung_fu</th>
+			</tr>
+			<tr>
+				<td>1</td>
+				<td>James</td>
+				<td>Bond</td>
+				<td>007</td>
+				<td>UK</td>
+				<td>MI6</td>
+				<td>97200</td>
+				<td>false</td>
+			</tr>
+			<tr>
+				<td>2</td>
+				<td>George</td>
+				<td>Smiley</td>
+				<td>Beggarman</td>
+				<td>UK</td>
+				<td>MI6</td>
+				<td>97200</td>
+				<td>false</td>
+			</tr>
+			<tr>
+				<td>3</td>
+				<td>Jason</td>
+				<td>Bourne</td>
+				<td>Delta One</td>
+				<td>US</td>
+				<td>CIA</td>
+				<td>115000</td>
+				<td>false</td>
+			</tr>
+			<tr>
+				<td>4</td>
+				<td>Jack</td>
+				<td>Ryan</td>
+				<td>Neo 2.0</td>
+				<td>US</td>
+				<td>CIA</td>
+				<td>115000</td>
+				<td>false</td>
+			</tr>
+			<tr>
+				<td>5</td>
+				<td>Ethan</td>
+				<td>Hunt</td>
+				<td>Bravo Echo 1-1</td>
+				<td>US</td>
+				<td>IMF</td>
+				<td>250000</td>
+				<td>true</td>
+			</tr>
+			<tr>
+				<td>6</td>
+				<td>Emma</td>
+				<td>Peel</td>
+				<td>Mrs.Peel</td>
+				<td>UK</td>
+				<td>MI6</td>
+				<td>97200</td>
+				<td>false</td>
+			</tr>
+			<tr>
+				<td>7</td>
+				<td>Susan</td>
+				<td>Hilton</td>
+				<td>Agent 99</td>
+				<td>US</td>
+				<td>Control</td>
+				<td>250000</td>
+				<td>true</td>
+			</tr>
+			<tr>
+				<td>8</td>
+				<td>Nick</td>
+				<td>Fury</td>
+				<td>Foxtrot</td>
+				<td>US</td>
+				<td>Shield</td>
+				<td>250000</td>
+				<td>true</td>
+			</tr>
+		</table>
+	</p>
+	
+	<h3>Вычисления</h3>
+	
+	<p>
+		Как хорошо, что команда UPDATE может себе позволить вычисления прямо внутри запроса. Наслучай если нам надо заменить значение в записи не на конкретное значение, а, например, увеличить его на 10% это не составит труда. Увеличим всем агентам зарплату на 10%
+		
+		<pre>
+			UPDATE `secret_user`
+			SET `salary` = 1.1*`salary`
+		</pre>
+		Так как повышать зарплату будем всем, нам не нужно условие. Если не указывать условие, то изменения будут применены ко всем записям в таблице
+	</p>
+</body>
+</html>
