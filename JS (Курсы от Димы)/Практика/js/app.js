@@ -20,3 +20,9 @@ console.log('Имя человека ' + age);				//Конкатенация. С
 
 console.log(typeof(age));
 console.log(age);
+
+
+
+let a = false || true;
+
+console.log(a);
